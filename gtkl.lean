@@ -116,3 +116,61 @@ def length (s : Segment) : Float :=
   distance s.s s.e
 
 #eval length { s := { x := 1, y := 2 }, e := { x := 5, y := -1 } }
+
+def isZero (n : Nat) : Bool :=
+  match n with
+  | Nat.zero => true
+  | Nat.succ _ => false
+
+#eval isZero 0
+#eval isZero 5
+
+def pred (n : Nat) : Nat :=
+  match n with
+  | Nat.zero => Nat.zero
+  | Nat.succ n => n
+
+#eval pred 4
+
+def depth (p : Point3D) : Float :=
+  match p with
+  | { x := _, y := _, z := d } => d
+
+def even (n : Nat) : Bool :=
+  match n with
+  | .zero => true
+  | .succ n => not (even n)
+
+#eval even 4
+#eval even 5
+
+def evenLoops (n : Nat) : Bool :=
+  match n with
+  | .zero => true
+  | .succ _ => not (evenLoops n)
+
+def plus (n₁ n₂ : Nat) : Nat :=
+  match n₁ with
+  | .zero => n₂
+  | .succ n₁' => Nat.succ (plus n₁' n₂)
+
+#eval plus 3 4
+
+def times (n₁ n₂ : Nat) : Nat :=
+  match n₂ with
+  | .zero => Nat.zero
+  | .succ n₂' => plus n₁ (times n₁ n₂')
+
+#eval times 3 4
+
+def minus (n k : Nat) : Nat :=
+  match k with
+  | .zero => n
+  | .succ k' => pred (minus n k')
+
+#eval minus 5 3
+#eval minus 2 5
+
+def div (n : Nat) (k : Nat) : Nat :=
+  if n < k then Nat.zero
+  else Nat.succ (div (n - k) k)
